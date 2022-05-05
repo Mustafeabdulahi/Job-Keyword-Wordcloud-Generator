@@ -69,5 +69,5 @@ try:
         # plt.axis('off')
         st.pyplot(fig)
 except ValueError:
-    st.subheader("Please copy & paste your job description in the box above & hit Enter!")  # set the sub header
+    st.markdown("##### Please copy & paste your job description in the box above & hit Enter!")  # set the sub header
 # st.markdown(words)
