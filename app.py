@@ -15,7 +15,7 @@ with st.sidebar.expander("About the App"):
         as part of internship program for Data Career Jumpstart Bootcamp. The main purpose 
         of the this app is to help job seekers to quickly generate and visualize key 
         words in job description and know what words they should include in their resume.""")
-st.title("Job Word  Cloud Generator Project")  # set the title
+st.title("Job Wordcloud Keyword Generator App")  # set the title
 
 text_input = st.text_input(" ").lower()  # get user input as string and turn it all lowercase
 
