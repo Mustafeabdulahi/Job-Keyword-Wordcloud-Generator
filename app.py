@@ -42,7 +42,7 @@ def text():
 # join text with space
 words = " ".join(text())
 
-im_shape = st.sidebar.file_uploader("Upload your image shape:", type='jpeg')
+im_shape = st.sidebar.file_uploader("Upload your shape as an jpeg, image must have white backround", type='jpeg')
 # Create a wordcloud generator
 try:
     if im_shape is not None:
@@ -69,5 +69,5 @@ try:
         # plt.axis('off')
         st.pyplot(fig)
 except ValueError:
-    st.subheader("Please copy & paste your job description in the box above!")  # set the sub header
+    st.subheader("Please copy & paste your job description in the box above & hit Enter!")  # set the sub header
 # st.markdown(words)
