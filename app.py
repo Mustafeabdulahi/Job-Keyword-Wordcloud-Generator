@@ -1,10 +1,13 @@
 from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator  # Generate word clouds
 from PIL import Image  # Load images
+import pandas as pd 
 import numpy as np  # Convert images to numbers
 import re  # clean the user_text_put and remove none words char
 import streamlit as st
 import matplotlib.pyplot as plt
-#from collections import Counter  # Count the frequency of distinct strings
+import plotly.express as px
+from collections import Counter  # Count the frequency of distinct strings
+from gensim.parsing.preprocessing import remove_stopwords
 
 # Streamline syntax ro create title, subtitle and text_input
 st.sidebar.image('logo1.png', width=300)
@@ -13,9 +16,9 @@ with st.sidebar.expander("About the App"):
     st.write("""
         This  Word cloud generator app is created by a group of inspiring data scientist and data analyst 
         as part of internship program for Data Career Jumpstart Bootcamp. The main purpose 
-        of the this app is to help job seekers to quickly generate and visualize key 
-        words in job description and know what words they should include in their resume.""")
-st.title("Wordcloud Job Description Keyword Generator App")  # set the title
+        of this app is to help job seekers to quickly generate and visualize key 
+        words in a job description and know what words they should include in their resume.""")
+st.title("Wordcloud Job Description Keyword Generator")  # set the title
 
 text_input = st.text_input(" ").lower()  # get user input as string and turn it all lowercase
 
@@ -41,8 +44,9 @@ def text():
 
 # join text with space
 words = " ".join(text())
+words_NST = remove_stopwords(words)
 
-im_shape = st.sidebar.file_uploader("Upload your shape as an jpeg, image must have white backround", type='jpeg')
+im_shape = st.sidebar.file_uploader("Upload your shape as an jpeg, image must have white backround (optional).", type='jpeg')
 # Create a wordcloud generator
 try:
     if im_shape is not None:
@@ -69,5 +73,23 @@ try:
         # plt.axis('off')
         st.pyplot(fig)
 except ValueError:
-    st.markdown("##### Please copy & paste your job description in the box above & hit Enter!")  # set the sub header
-# st.markdown(words)
+    st.markdown("##### Copy & paste your job description in the box above & hit Enter!")  # set the sub header
+
+if text_input:
+    list_of_word = list((words_NST.split(" ")))
+    #st.write(list_of_word)
+    list_of_words = [word for word in list_of_word]
+   # st.write(list_of_word)
+    count = Counter(list_of_words)
+
+    #st.write(count)
+
+    list_of_words_df = pd.DataFrame(count.most_common(25), columns=["words", "word_count"])
+    # st.write(list_of_words_df)
+    # Plot horizontal bar graph
+    list_of_words_df.sort_values(by='words')
+    fig = px.bar(list_of_words_df, x="word_count", y="words",
+        labels={'word_count':'Word Frequences'}, height=640,  width=800)
+    st.plotly_chart(fig)
+
+
