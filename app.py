@@ -84,12 +84,12 @@ if text_input:
 
     #st.write(count)
 
-    list_of_words_df = pd.DataFrame(count.most_common(25), columns=["words", "word_count"])
+    list_of_words_df = pd.DataFrame(count.most_common(50), columns=["words", "word_count"])
     # st.write(list_of_words_df)
     # Plot horizontal bar graph
-    list_of_words_df.sort_values(by='words')
-    fig = px.bar(list_of_words_df, x="word_count", y="words",
-        labels={'word_count':'Word Frequences'}, height=640,  width=800)
+    #list_of_words_df.sort_values(by='word_count')
+    fig = px.bar(list_of_words_df, x="words", y="word_count",
+        labels={'word_count':'Word Frequences'}, height=640,  width=1000)
     st.plotly_chart(fig)
 
 
