@@ -75,7 +75,9 @@ try:
 except ValueError:
     st.markdown("##### Copy & paste your job description in the box above & hit Enter!")  # set the sub header
 
-if text_input:
+check = st.checkbox('Graph Bar Chart')
+
+if check and text_input:
     list_of_word = list((words_NST.split(" ")))
     #st.write(list_of_word)
     list_of_words = [word for word in list_of_word]
@@ -84,7 +86,7 @@ if text_input:
 
     #st.write(count)
 
-    list_of_words_df = pd.DataFrame(count.most_common(50), columns=["words", "word_count"])
+    list_of_words_df = pd.DataFrame(count.most_common(100), columns=["words", "word_count"])
     # st.write(list_of_words_df)
     # Plot horizontal bar graph
     list_of_words_df.sort_values(by='word_count')
