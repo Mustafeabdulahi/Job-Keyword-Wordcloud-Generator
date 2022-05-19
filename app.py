@@ -35,6 +35,7 @@ width = int(st.sidebar.number_input('Choose width between 500 - 1000 pixels',
 # st.markdown(text_input)
 
 # Create a function to remove none words in the job description
+@st.cache
 def text():
     pattern = r'\W+'  # return only words with in text
     # Split the text into a list of individual words
